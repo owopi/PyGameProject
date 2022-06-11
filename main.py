@@ -24,12 +24,22 @@ height = 768
 screen = pygame.display.set_mode(res)
 
 # background
-bg_img = pygame.image.load("bg.jpg")
+bg_img = pygame.image.load("abc.jpg")
 bg_img = pygame.transform.scale(bg_img,(1366,768))
 bg2 = pygame.image.load("bg2.jpg")
 bg2 = pygame.transform.scale(bg2,(1366,768))
 death = pygame.image.load("death.jpg")
 death = pygame.transform.scale(death,(1366,768))
+slide1 = pygame.image.load("Slide1.jpg")
+slide1 = pygame.transform.scale(slide1,(1366,768))
+slide2 = pygame.image.load("Slide2.jpg")
+slide2 = pygame.transform.scale(slide2,(1366,768))
+slide3 = pygame.image.load("Slide3.jpg")
+slide3 = pygame.transform.scale(slide3,(1366,768))
+slide4 = pygame.image.load("Slide4.jpg")
+slide4 = pygame.transform.scale(slide4,(1366,768))
+slide5 = pygame.image.load("Slide5.jpg")
+slide5 = pygame.transform.scale(slide5,(1366,768))
 
 # define the RGB value for white,
 # green, yellow, orange colour
@@ -48,6 +58,7 @@ back_button_font = pygame.font.Font(sf_display, 50)
 button_font = pygame.font.Font(debug_font, 80)
 death_font = pygame.font.Font(conflict_font, 80)
 ui_font = pygame.font.Font(sf_display, 80)
+title_font = pygame.font.Font(sf_display, 120)
 hehe_font = pygame.font.Font(sf_display, 20)
 
 
@@ -87,14 +98,6 @@ class Button():
 		else:
 			button.text = button.font.render(button.text_input, True, button.base_color)
 
-"""# stores the width of the
-# screen into a variable
-width = screen.get_width()
-
-# stores the height of the
-# screen into a variable
-height = screen.get_height()"""
-
 
 def main_menu():
     while True:
@@ -102,7 +105,7 @@ def main_menu():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = menu_font.render("MAIN    MENU", True, "#b68f40")
+        MENU_TEXT = title_font.render("MAIN    MENU", True, "#ffffff")
         MENU_RECT = MENU_TEXT.get_rect(center=(700, 100))
 
         LESSON_BUTTON = Button(image=pygame.image.load("Large_Rect.png"), pos=(700, 250), text_input="Lesson", font=small_menu_font, base_color="#d7fcd4", hovering_color="White")
@@ -123,7 +126,7 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if LESSON_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    lesson()
+                    lesson1()
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     play()
                 if QUIZ_BUTTON.checkForInput(MENU_MOUSE_POS):
@@ -138,33 +141,103 @@ def main_menu():
 
 
 
-def lesson():
-    #call(["python", "test_video.py"])
+def lesson1():
     while True:
+        screen.blit(slide1, (0, 0))
         MOUSE_POS = pygame.mouse.get_pos()
 
-        screen.fill("black")
-
-        TEXT = menu_font.render('Lesson Goes Here', True, white)
-        RECT = TEXT.get_rect(center=(690, 260))
-        screen.blit(TEXT, RECT)
-        BACK = Button(image=None, pos=(1200, 700), text_input="BACK", font=back_button_font, base_color="White", hovering_color="Green")
+        NEXT = Button(image=None, pos=(1200, 700), text_input="NEXT", font=back_button_font, base_color="White", hovering_color="Green")
         
-        BACK.changeColor(MOUSE_POS)
-        BACK.update(screen)
+        NEXT.changeColor(MOUSE_POS)
+        NEXT.update(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
               pygame.quit()
               sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-              if BACK.checkForInput(MOUSE_POS):
-                main_menu()
+              if NEXT.checkForInput(MOUSE_POS):
+                lesson2()
+        pygame.display.update()
 
+def lesson2():
+    while True:
+        screen.blit(slide2, (0, 0))
+        MOUSE_POS = pygame.mouse.get_pos()
+
+        NEXT = Button(image=None, pos=(1200, 700), text_input="NEXT", font=back_button_font, base_color="White", hovering_color="Green")
+        
+        NEXT.changeColor(MOUSE_POS)
+        NEXT.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+              pygame.quit()
+              sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+              if NEXT.checkForInput(MOUSE_POS):
+                lesson3()
+        pygame.display.update()
+
+def lesson3():
+    while True:
+        screen.blit(slide3, (0, 0))
+        MOUSE_POS = pygame.mouse.get_pos()
+
+        NEXT = Button(image=None, pos=(1200, 700), text_input="NEXT", font=back_button_font, base_color="White", hovering_color="Green")
+        
+        NEXT.changeColor(MOUSE_POS)
+        NEXT.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+              pygame.quit()
+              sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+              if NEXT.checkForInput(MOUSE_POS):
+                lesson4()
+        pygame.display.update()
+
+def lesson4():
+    while True:
+        screen.blit(slide4, (0, 0))
+        MOUSE_POS = pygame.mouse.get_pos()
+
+        NEXT = Button(image=None, pos=(1200, 700), text_input="NEXT", font=back_button_font, base_color="White", hovering_color="Green")
+        
+        NEXT.changeColor(MOUSE_POS)
+        NEXT.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+              pygame.quit()
+              sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+              if NEXT.checkForInput(MOUSE_POS):
+                lesson5()
+        pygame.display.update()
+
+def lesson5():
+    while True:
+        screen.blit(slide5, (0, 0))
+        MOUSE_POS = pygame.mouse.get_pos()
+
+        MENU = Button(image=None, pos=(1200, 700), text_input="MAIN MENU", font=back_button_font, base_color="White", hovering_color="Green")
+        
+        MENU.changeColor(MOUSE_POS)
+        MENU.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+              pygame.quit()
+              sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+              if MENU.checkForInput(MOUSE_POS):
+                main_menu()
         pygame.display.update()
 
 def play():
-    #call(["python", "lore_video.py"])
+    call(["python", "lore_video.py"])
     while True:
         screen.blit(bg2, (0,0))
         MOUSE_POS = pygame.mouse.get_pos()
@@ -277,9 +350,6 @@ def death_tiger():
         pygame.display.update()
 
 
-
-
-
 def quiz():
     #call(["python", "test_video.py"])
     while True:
@@ -287,14 +357,14 @@ def quiz():
 
         screen.fill("black")
 
-        TEXT = menu_font.render('Ready to Bgein?', True, white)
+        TEXT = menu_font.render('READY    TO    BEGIN?', True, white)
         RECT = TEXT.get_rect(center=(690, 260))
         screen.blit(TEXT, RECT)
-        BACK = Button(image=None, pos=(500, 500), text_input="BACK", font=back_button_font, base_color="red", hovering_color="white")
+        MENU = Button(image=None, pos=(500, 500), text_input="MAIN MENU", font=back_button_font, base_color="red", hovering_color="white")
         READY = Button(image=None, pos=(900, 500), text_input="READY", font=back_button_font, base_color="White", hovering_color="Green")
         
-        BACK.changeColor(MOUSE_POS)
-        BACK.update(screen)
+        MENU.changeColor(MOUSE_POS)
+        MENU.update(screen)
         READY.changeColor(MOUSE_POS)
         READY.update(screen)
 
@@ -303,7 +373,7 @@ def quiz():
               pygame.quit()
               sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-              if BACK.checkForInput(MOUSE_POS):
+              if MENU.checkForInput(MOUSE_POS):
                 main_menu()
               if READY.checkForInput(MOUSE_POS):
                 question1()
