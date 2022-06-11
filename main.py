@@ -7,11 +7,12 @@ quiz_started = False
 # initializing the constructor
 pygame.init()
 
-
+#declare paths
 jungle_font = "font.otf"
 debug_font = "debug_font.otf"
 conflict_font = "conflict_font.ttf"
 sf_display = "SFUI-Heavy.otf"
+reactive_font = "ReactiveAnchor.ttf"
 clock = pygame.time.Clock()
 
 
@@ -23,7 +24,7 @@ height = 768
 # opens up a window
 screen = pygame.display.set_mode(res)
 
-# background
+# backgrounds
 bg_img = pygame.image.load("abc.jpg")
 bg_img = pygame.transform.scale(bg_img,(1366,768))
 bg2 = pygame.image.load("bg2.jpg")
@@ -41,8 +42,7 @@ slide4 = pygame.transform.scale(slide4,(1366,768))
 slide5 = pygame.image.load("Slide5.jpg")
 slide5 = pygame.transform.scale(slide5,(1366,768))
 
-# define the RGB value for white,
-# green, yellow, orange colour
+# define the RGB values
 color = (255,255,255)
 white=(255, 255, 255)
 yellow=(255, 255, 0)
@@ -50,18 +50,16 @@ green=(0, 255, 255)
 orange=(255, 100, 0)
 black = (0,0,0)
 red = (255, 49, 49)
-done = False
 
+# declare fonts
 menu_font = pygame.font.Font(jungle_font, 132)
 small_menu_font = pygame.font.Font(jungle_font, 100)
 back_button_font = pygame.font.Font(sf_display, 50)
 button_font = pygame.font.Font(debug_font, 80)
 death_font = pygame.font.Font(conflict_font, 80)
 ui_font = pygame.font.Font(sf_display, 80)
-title_font = pygame.font.Font(sf_display, 120)
+title_font = pygame.font.Font(reactive_font, 166)
 hehe_font = pygame.font.Font(sf_display, 20)
-
-
 
  
 class Button():
@@ -102,22 +100,23 @@ class Button():
 def main_menu():
     while True:
         screen.blit(bg_img, (0, 0))
+        MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        MENU_TEXT = title_font.render("MAIN", True, "#ffffff")
+        MENU_RECT = MENU_TEXT.get_rect(center=(400, 300))
+        MENU_TEXT2 = title_font.render("MENU", True, "#ffffff")
+        MENU_RECT2 = MENU_TEXT2.get_rect(center=(400, 500))
+        screen.blit(MENU_TEXT, MENU_RECT)
+        screen.blit(MENU_TEXT2,MENU_RECT2)
 
-        MENU_TEXT = title_font.render("MAIN    MENU", True, "#ffffff")
-        MENU_RECT = MENU_TEXT.get_rect(center=(700, 100))
-
-        LESSON_BUTTON = Button(image=pygame.image.load("Large_Rect.png"), pos=(700, 250), text_input="Lesson", font=small_menu_font, base_color="#d7fcd4", hovering_color="White")
-        PLAY_BUTTON = Button(image=pygame.image.load("Small_Rect.png"), pos=(700, 400), text_input="Play", font=small_menu_font, base_color="#d7fcd4", hovering_color="White")
-        QUIZ_BUTTON = Button(image=pygame.image.load("Small_Rect.png"), pos=(700, 550), text_input="Quiz", font=small_menu_font, base_color="#d7fcd4", hovering_color="White")
-        RESULTS_BUTTON = Button(image=pygame.image.load("Large_Rect.png"), pos=(400, 700), text_input="Results", font=small_menu_font, base_color="#d7fcd4", hovering_color="White")
+        LESSON_BUTTON = Button(image=pygame.image.load("Large_Rect.png"), pos=(1000, 100), text_input="Lesson", font=small_menu_font, base_color="#d7fcd4", hovering_color="White")
+        PLAY_BUTTON = Button(image=pygame.image.load("Small_Rect.png"), pos=(1000, 250), text_input="Play", font=small_menu_font, base_color="#d7fcd4", hovering_color="White")
+        QUIZ_BUTTON = Button(image=pygame.image.load("Small_Rect.png"), pos=(1000, 400), text_input="Quiz", font=small_menu_font, base_color="#d7fcd4", hovering_color="White")
+        RESULTS_BUTTON = Button(image=pygame.image.load("Large_Rect.png"), pos=(1000, 550), text_input="Results", font=small_menu_font, base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("Quit_Rect.png"), pos=(1000, 700), text_input="EXIT", font=small_menu_font, base_color="#d7fcd4", hovering_color="red")
 
-        screen.blit(MENU_TEXT, MENU_RECT)
-
         for button in [LESSON_BUTTON, PLAY_BUTTON, QUIZ_BUTTON, RESULTS_BUTTON, QUIT_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
+            button.changeColor(MOUSE_POS)
             button.update(screen)
         
         for event in pygame.event.get():
@@ -125,18 +124,17 @@ def main_menu():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if LESSON_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if LESSON_BUTTON.checkForInput(MOUSE_POS):
                     lesson1()
-                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if PLAY_BUTTON.checkForInput(MOUSE_POS):
                     play()
-                if QUIZ_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if QUIZ_BUTTON.checkForInput(MOUSE_POS):
                     quiz()
-                if RESULTS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if RESULTS_BUTTON.checkForInput(MOUSE_POS):
                     results()
-                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if QUIT_BUTTON.checkForInput(MOUSE_POS):
                     pygame.quit()
                     sys.exit()
-
         pygame.display.update()
 
 
@@ -236,25 +234,25 @@ def lesson5():
                 main_menu()
         pygame.display.update()
 
+"""GAME CODE"""
+
 def play():
     call(["python", "lore_video.py"])
     while True:
         screen.blit(bg2, (0,0))
         MOUSE_POS = pygame.mouse.get_pos()
 
-
         TEXT = small_menu_font.render('what  will  you  do', True, white)
         RECT = TEXT.get_rect(center=(690, 100))
         screen.blit(TEXT, RECT)
+
         WALK = Button(image=None, pos=(700, 400), text_input="Keep Walking", font=button_font, base_color="#d7fcd4", hovering_color="white")
         MOMENT = Button(image=None, pos=(700, 600), text_input="Take a Moment to Collect your Thoughts", font=button_font, base_color="#d7fcd4", hovering_color="white")
-
         
-        WALK.changeColor(MOUSE_POS)
-        WALK.update(screen)
-        MOMENT.changeColor(MOUSE_POS)
-        MOMENT.update(screen)
-
+        for button in [WALK, MOMENT]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
               pygame.quit()
@@ -264,7 +262,6 @@ def play():
                 walking1()
               if MOMENT.checkForInput(MOUSE_POS):
                 main_menu()
-
         pygame.display.update()
 
 def walking1():
@@ -272,18 +269,15 @@ def walking1():
         screen.blit(bg2, (0,0))
         MOUSE_POS = pygame.mouse.get_pos()
 
-
         TEXT = small_menu_font.render('choose   wisely', True, white)
         RECT = TEXT.get_rect(center=(690, 100))
         screen.blit(TEXT, RECT)
         CAVE = Button(image=None, pos=(700, 400), text_input="Take Shelter in a Nearby Cave", font=button_font, base_color="#d7fcd4", hovering_color="white")
         WALK = Button(image=None, pos=(700, 600), text_input="Try to Find your Way Back", font=button_font, base_color="#d7fcd4", hovering_color="white")
 
-        
-        CAVE.changeColor(MOUSE_POS)
-        CAVE.update(screen)
-        WALK.changeColor(MOUSE_POS)
-        WALK.update(screen)
+        for button in [CAVE, WALK]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -294,7 +288,6 @@ def walking1():
                 death_spider()
               if WALK.checkForInput(MOUSE_POS):
                 death_tiger()
-
         pygame.display.update()
 
 
@@ -357,16 +350,15 @@ def quiz():
 
         screen.fill("black")
 
-        TEXT = menu_font.render('READY    TO    BEGIN?', True, white)
+        TEXT = title_font.render('READY TO BEGIN?', True, white)
         RECT = TEXT.get_rect(center=(690, 260))
         screen.blit(TEXT, RECT)
         MENU = Button(image=None, pos=(500, 500), text_input="MAIN MENU", font=back_button_font, base_color="red", hovering_color="white")
         READY = Button(image=None, pos=(900, 500), text_input="READY", font=back_button_font, base_color="White", hovering_color="Green")
         
-        MENU.changeColor(MOUSE_POS)
-        MENU.update(screen)
-        READY.changeColor(MOUSE_POS)
-        READY.update(screen)
+        for button in [MENU, READY]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -400,14 +392,9 @@ def question1():
       OPT3 = Button(image=None, pos=(500, 650), text_input="Body Heat", font=back_button_font, base_color="red", hovering_color="white")
       OPT4 = Button(image=None, pos=(900, 650), text_input="Shelter", font=back_button_font, base_color="red", hovering_color="white")
       
-      OPT1.changeColor(MOUSE_POS)
-      OPT1.update(screen)
-      OPT2.changeColor(MOUSE_POS)
-      OPT2.update(screen)
-      OPT3.changeColor(MOUSE_POS)
-      OPT3.update(screen)
-      OPT4.changeColor(MOUSE_POS)
-      OPT4.update(screen)
+      for button in [OPT1, OPT2, OPT3, OPT4]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
 
       for event in pygame.event.get():
           if event.type == pygame.QUIT:
@@ -450,22 +437,11 @@ def question2():
       OPT4 = Button(image=None, pos=(900, 650), text_input="Boil Water", font=back_button_font, base_color="red", hovering_color="white")
       OPT4B = Button(image=None, pos=(900, 700), text_input="with a Fire", font=back_button_font, base_color="white", hovering_color="white")
       
-      OPT1.changeColor(MOUSE_POS)
-      OPT1.update(screen)
-      #OPT1B.changeColor(MOUSE_POS)
-      OPT1B.update(screen)
-      OPT2.changeColor(MOUSE_POS)
-      OPT2.update(screen)
-      #OPT2B.changeColor(MOUSE_POS)
-      OPT2B.update(screen)
-      OPT3.changeColor(MOUSE_POS)
-      OPT3.update(screen)
-      #OPT3B.changeColor(MOUSE_POS)
-      OPT3B.update(screen)
-      OPT4.changeColor(MOUSE_POS)
-      OPT4.update(screen)
-      #OPT4B.changeColor(MOUSE_POS)
-      OPT4B.update(screen)
+      for button in [OPT1, OPT2, OPT3, OPT4]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
+      for button in [OPT1B, OPT2B, OPT3B, OPT4B]:
+            button.update(screen)
 
       for event in pygame.event.get():
           if event.type == pygame.QUIT:
@@ -504,14 +480,9 @@ def question3():
       OPT3 = Button(image=None, pos=(500, 650), text_input="Not Sure", font=back_button_font, base_color="red", hovering_color="white")
       OPT4 = Button(image=None, pos=(900, 650), text_input="Rick Astley", font=back_button_font, base_color="red", hovering_color="white")
       
-      OPT1.changeColor(MOUSE_POS)
-      OPT1.update(screen)
-      OPT2.changeColor(MOUSE_POS)
-      OPT2.update(screen)
-      OPT3.changeColor(MOUSE_POS)
-      OPT3.update(screen)
-      OPT4.changeColor(MOUSE_POS)
-      OPT4.update(screen)
+      for button in [OPT1, OPT2, OPT3, OPT4]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
 
       for event in pygame.event.get():
           if event.type == pygame.QUIT:
@@ -547,15 +518,10 @@ def question4():
       OPT3 = Button(image=None, pos=(500, 650), text_input="RICK ASTLEY", font=back_button_font, base_color="red", hovering_color="white")
       OPT4 = Button(image=None, pos=(900, 650), text_input="WATER", font=back_button_font, base_color="red", hovering_color="white")
       
-      OPT1.changeColor(MOUSE_POS)
-      OPT1.update(screen)
-      OPT2.changeColor(MOUSE_POS)
-      OPT2.update(screen)
-      OPT3.changeColor(MOUSE_POS)
-      OPT3.update(screen)
-      OPT4.changeColor(MOUSE_POS)
-      OPT4.update(screen)
-
+      for button in [OPT1, OPT2, OPT3, OPT4]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
+    
       for event in pygame.event.get():
           if event.type == pygame.QUIT:
             pygame.quit()
@@ -593,14 +559,9 @@ def question5():
       OPT3 = Button(image=None, pos=(440, 650), text_input="Twigs", font=back_button_font, base_color="red", hovering_color="white")
       OPT4 = Button(image=None, pos=(900, 650), text_input="A Fire Inside Your Tent", font=back_button_font, base_color="red", hovering_color="white")
       
-      OPT1.changeColor(MOUSE_POS)
-      OPT1.update(screen)
-      OPT2.changeColor(MOUSE_POS)
-      OPT2.update(screen)
-      OPT3.changeColor(MOUSE_POS)
-      OPT3.update(screen)
-      OPT4.changeColor(MOUSE_POS)
-      OPT4.update(screen)
+      for button in [OPT1, OPT2, OPT3, OPT4]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
 
       for event in pygame.event.get():
           if event.type == pygame.QUIT:
@@ -632,7 +593,6 @@ def results():
         screen.blit(TEXT, RECT)
 
       else:
-    
         if score <= 2:
           TEXT = ui_font.render("You scored a " + str(score) + " out of 5", True, white)
           RECT = TEXT.get_rect(center=(720, 150))
@@ -666,10 +626,9 @@ def results():
       BACK = Button(image=None, pos=(720, 700), text_input="MAIN MENU", font=back_button_font, base_color="White", hovering_color="Green")
       TRY_AGAIN = Button(image=None, pos=(720, 600), text_input="BACK TO THE QUIZ", font=back_button_font, base_color="White", hovering_color="Green")
       
-      BACK.changeColor(MOUSE_POS)
-      BACK.update(screen)
-      TRY_AGAIN.changeColor(MOUSE_POS)
-      TRY_AGAIN.update(screen)
+      for button in [BACK, TRY_AGAIN]:
+            button.changeColor(MOUSE_POS)
+            button.update(screen)
 
       for event in pygame.event.get():
           if event.type == pygame.QUIT:
@@ -685,4 +644,3 @@ def results():
       pygame.display.update()
 
 main_menu()
-
